@@ -16,6 +16,8 @@ A `theme_dc()` function is also kept for backward compatibility with legacy code
 ## Installation
 
 ```bash
+git clone git@github.com:diegomcarvalho/dcthemefactory.git
+cd dcthemefactory
 pip install plotnine pandas numpy
 ```
 
