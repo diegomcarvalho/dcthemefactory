@@ -40,7 +40,7 @@ import os
 
 #colors = ["#0C87D1", "#40b8d0", "#193375", "#19AE47", "#FFCB05", "#b2d183", "#FDDC02",]
 
-colors = [
+p_colors = [
     "#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#A0C4FF",
     "#BDB2FF", "#FFC6FF", "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9",
     "#BAE1FF", "#D4A5A5", "#C9C9FF", "#FFCCE5", "#B5EAD7", "#C7CEEA",
@@ -50,7 +50,7 @@ colors = [
 ]
 
 colors = [
-    "#E6194B", "#3CB44B", "#0082C8", "#F58231", "#911EB4",
+    "#0082C8", "#3CB44B", "#F58231", "#911EB4", "#E6194B",
     "#46F0F0", "#F032E6", "#D2F53C", "#FABEBE", "#008080",
     "#E6BEFF", "#AA6E28", "#800000", "#AAFFC3", "#808000",
     "#FFD8B1", "#000080", "#FF4500", "#8B008B", "#2E8B57",
@@ -58,6 +58,7 @@ colors = [
     "#4682B4", "#556B2F", "#9932CC", "#FF6347", "#20B2AA",
     "#C71585", "#6A5ACD",
 ]
+
 
 class DCThemeFactory:
     BASE_KWARGS = dict(
@@ -76,7 +77,7 @@ class DCThemeFactory:
         legend_spacing=0.5,
     )
 
-    FILL_GEOMS = {"bar", "area"}
+    FILL_GEOMS = {"bar", "area", "hist"}
 
     @classmethod
     def create_theme(cls, x_date: bool = False, **overrides) -> p9.theme:
@@ -91,18 +92,22 @@ class DCThemeFactory:
         return p9.theme(**kwargs) # type: ignore
 
     @classmethod
-    def create_figure(cls, df, x, y, color=None, kind="line",
+    def create_figure(cls, df, x, y=None, color=None, kind="line",
                        title="", subtitle=None, xlab="", ylab="",
                        x_date=False, palette=None, alpha=None,
-                       stacked=True, **theme_overrides):
+                       stacked=True, bins=30, binwidth=None,
+                       **theme_overrides):
         palette = palette or colors
         uses_fill = kind in cls.FILL_GEOMS
 
-        mapping = {"x": x, "y": y}
+        mapping = {"x": x}
+        if kind != "hist":
+            mapping["y"] = y
+
         if color:
             if uses_fill:
                 mapping["fill"] = color
-                if kind == "bar":
+                if kind in ("bar", "hist"):
                     mapping["group"] = color
             else:
                 mapping["color"] = color
@@ -129,6 +134,19 @@ class DCThemeFactory:
                 geom_kwargs["position"] = "identity"
                 geom_kwargs.setdefault("alpha", 0.6)
             geom = p9.geom_area(**geom_kwargs)
+        elif kind == "hist":
+            geom_kwargs["colour"] = "black"
+            geom_kwargs["size"] = 0.3
+            if binwidth is not None:
+                geom_kwargs["binwidth"] = binwidth
+            else:
+                geom_kwargs["bins"] = bins
+            if stacked:
+                geom_kwargs["position"] = "stack"
+            else:
+                geom_kwargs["position"] = "identity"
+                geom_kwargs.setdefault("alpha", 0.6)
+            geom = p9.geom_histogram(**geom_kwargs)
         elif kind == "line":
             geom = p9.geom_line(size=1, **geom_kwargs)
         elif kind == "scatter":
