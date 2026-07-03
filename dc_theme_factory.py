@@ -7,7 +7,7 @@ themed Plotnine charts based on the custom `theme_dc()` theme.
 
 Author: Diego Carvalho
 Contact: diego.carvalho@cefet-rj.br
-Institution: CEFET/RJ - Centro Federal de Educacao Tecnologica
+Institution: CEFET/RJ - Centro Federal de Educação Tecnológica
 Celso Suckow da Fonseca
 
 Copyright (c) 2026 Diego Carvalho
@@ -18,14 +18,14 @@ To view a copy of this license, visit:
 https://creativecommons.org/licenses/by-sa/4.0/
 
 You are free to:
-- Share : copy and redistribute the material in any medium or format.
-- Adapt : remix, transform, and build upon the material for any
+- Share: copy and redistribute the material in any medium or format.
+- Adapt: remix, transform, and build upon the material for any
 purpose, even commercially.
 
 Under the following terms:
-- Attribution : You must give appropriate credit, provide a link to
+- Attribution: You must give appropriate credit, provide a link to
 the license, and indicate if changes were made.
-- ShareAlike : If you remix, transform, or build upon the material,
+- ShareAlike: If you remix, transform, or build upon the material,
 you must distribute your contributions under the same
 license as the original.
 
@@ -39,7 +39,7 @@ import plotnine as p9
 import numpy as np
 import os
 
-# Legacy palette (kept for reference / rollback). Not used by default.
+# Legacy palette (kept for reference/rollback). Not used by default.
 # colors = ["#0C87D1", "#40b8d0", "#193375", "#19AE47", "#FFCB05", "#b2d183", "#FDDC02"]
 
 # Pastel palette: soft, low-saturation colors. Best used on dark backgrounds
@@ -158,40 +158,40 @@ class DCThemeFactory:
 
         Parameters
         ----------
-        df : pandas.DataFrame
+        df: pandas.DataFrame
             Source data.
-        x, y : str
+        x, y: str
             Column names mapped to the x and y aesthetics. `y` is ignored
             when kind == "hist" (histograms compute counts internally).
         color : str, optional
             Column used to group/color series. Depending on `kind`, this
             is mapped either to the `color` aesthetic (line, scatter) or
             to `fill` (bar, area, hist) -- see FILL_GEOMS.
-        kind : str
+        kind: str
             One of "line", "scatter", "bar", "area", "hist".
-        title, subtitle, xlab, ylab : str
+        title, subtitle, xlab, ylab: str
             Passed directly to p9.labs().
-        x_date : bool
+        x_date: bool
             Forwarded to create_theme(); rotates x-axis labels for dense
             date axes.
-        palette : list[str], optional
+        palette: list[str], optional
             Overrides the default `colors` palette.
-        alpha : float, optional
+        alpha: float, optional
             Transparency applied to the geom. For area/hist with
             stacked=False, a default of 0.6 is applied automatically if
             alpha is not explicitly set, so overlapping series stay
             legible.
-        stacked : bool
+        stacked: bool
             Controls whether bar/area/hist series are stacked (True,
             default) or placed side-by-side / overlapped (False):
-              - bar : dodge (side-by-side bars) instead of stacking.
+              - bar: dodge (side-by-side bars) instead of stacking.
               - area: identity position (each series drawn independently)
                 instead of accumulating values.
               - hist: identity position instead of stacking bin counts.
-        bins, binwidth : int / float, optional
+        bins, binwidth: int/float, optional
             Only used when kind == "hist". `binwidth` takes precedence
             over `bins` when both are provided.
-        **theme_overrides :
+        **theme_overrides:
             Forwarded to create_theme(), allowing ad-hoc theme tweaks
             per figure (e.g. legend_position="right").
 
