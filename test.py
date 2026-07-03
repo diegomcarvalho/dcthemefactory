@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from src.dc_theme_factory.dc_theme_factory import DCThemeFactory, colors
+from src.dc_theme_factory.dc_theme_factory import DCThemeFactory, DC_PALETTE
 
 dates = pd.date_range("2026-01-01", periods=60, freq="D")
 df = pd.DataFrame({
@@ -29,6 +29,7 @@ fig = DCThemeFactory.create_figure(
     df_bar, x="month", y="value", color="variable",
     kind="bar", title="Monthly Average Rate",
     xlab="Month", ylab="Value", stacked=False,
+    look="economist"
 )
 fig.save("monthly_average_rate.png", width=8, height=5, dpi=150)
 
@@ -54,6 +55,7 @@ fig = DCThemeFactory.create_figure(
     kind="boxplot", swarm=True,
     swarm_width=0.05, swarm_bins=25,
     jitter_size=1.0, jitter_alpha=0.3,
+    look="economist"
 )
 
 fig.save("exchange_rate_boxplot.png", width=8, height=5, dpi=150)

@@ -33,6 +33,6 @@ THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 """
 
-from .dc_theme_factory import DCThemeFactory, theme_dc, colors
+from .dc_theme_factory import DCThemeFactory, theme_dc, DC_PALETTE
 
-__all__ = ["DCThemeFactory", "theme_dc", "colors"]
+__all__ = ["DCThemeFactory", "theme_dc", "DC_PALETTE"]
