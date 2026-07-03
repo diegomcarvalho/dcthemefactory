@@ -2,14 +2,14 @@ import pandas as pd
 import numpy as np
 from src.dc_theme_factory.dc_theme_factory import DCThemeFactory, colors
 
-dates = pd.date_range("2026-01-01", periods=30, freq="D")
+dates = pd.date_range("2026-01-01", periods=60, freq="D")
 df = pd.DataFrame({
     "data": np.tile(dates, 2),
     "value": np.concatenate([
-        5.2 + np.cumsum(np.random.normal(0, 0.02, 30)),
-        5.4 + np.cumsum(np.random.normal(0, 0.02, 30)),
+        5.2 + np.cumsum(np.random.normal(0, 0.02, 60)),
+        5.4 + np.cumsum(np.random.normal(0, 0.02, 60)),
     ]),
-    "variable": ["EUR"] * 30 + ["USD"] * 30,
+    "variable": ["EUR"] * 60 + ["USD"] * 60,
 })
 
 fig = DCThemeFactory.create_figure(
@@ -51,8 +51,8 @@ fig.save("exchange_rate_distribution.png", width=8, height=5, dpi=150)
 
 fig = DCThemeFactory.create_figure(
     df, x="variable", y="value", color="variable",
-    kind="boxplot", swarm=False,
-    swarm_width=0.1, swarm_bins=25,
+    kind="boxplot", swarm=True,
+    swarm_width=0.05, swarm_bins=25,
     jitter_size=1.0, jitter_alpha=0.3,
 )
 
