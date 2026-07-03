@@ -48,3 +48,12 @@ fig = DCThemeFactory.create_figure(
 )
 
 fig.save("exchange_rate_distribution.png", width=8, height=5, dpi=150)
+
+fig = DCThemeFactory.create_figure(
+    df, x="variable", y="value", color="variable",
+    kind="boxplot", swarm=False,
+    swarm_width=0.1, swarm_bins=25,
+    jitter_size=1.0, jitter_alpha=0.3,
+)
+
+fig.save("exchange_rate_boxplot.png", width=8, height=5, dpi=150)
