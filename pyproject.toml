@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dc-theme-factory"
+version = "0.1.0"
+description = "A Factory Method implementation for creating consistently themed [Plotnine](https://plotnine.org/) charts, based on the `theme_dc()` custom theme."
+requires-python = ">=3.12"
+dependencies = ["plotnine"]
+
+[tool.setuptools.packages.find]
+where = ["src"]   

@@ -34,10 +34,7 @@ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 """
 
-import pandas as pd
 import plotnine as p9
-import numpy as np
-import os
 
 # Legacy palette (kept for reference/rollback). Not used by default.
 # colors = ["#0C87D1", "#40b8d0", "#193375", "#19AE47", "#FFCB05", "#b2d183", "#FDDC02"]

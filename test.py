@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from dc_theme_factory import DCThemeFactory, colors
+from src.dc_theme_factory.dc_theme_factory import DCThemeFactory, colors
 
 dates = pd.date_range("2026-01-01", periods=30, freq="D")
 df = pd.DataFrame({
