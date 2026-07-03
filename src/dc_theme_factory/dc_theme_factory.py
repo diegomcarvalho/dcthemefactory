@@ -41,6 +41,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 import pandas as pd
 import plotnine as p9
 import numpy as np
+from typing import Any, Sized
 import os
 
 
@@ -417,7 +418,7 @@ class DCThemeFactory:
         # can be offset by fractional amounts), so categories are first
         # converted to numeric codes; the original labels are restored
         # via scale_x_continuous(breaks=..., labels=...) further below.
-        _swarm_categories = None
+        _swarm_categories : list[Any] | Sized | None= None
         if kind == "boxplot" and swarm:
             df = df.copy()
             _swarm_categories = list(pd.Categorical(df[x]).categories)
@@ -555,7 +556,7 @@ class DCThemeFactory:
                 # Re-map the numeric x-axis codes back to the original
                 # category labels for display.
                 fig_extra_scale = p9.scale_x_continuous(
-                    breaks=list(range(len(_swarm_categories))),
+                    breaks=list(range(len(_swarm_categories))), # type: ignore
                     labels=_swarm_categories,
                 )
             else:
@@ -568,8 +569,8 @@ class DCThemeFactory:
                     size=jitter_size, alpha=jitter_alpha,
                 )
                 if color and outline_colour is not None:
-                    jitter_kwargs["colour"] = outline_colour
-                geom_jitter = p9.geom_jitter(**jitter_kwargs)
+                    jitter_kwargs["colour"] = outline_colour # type: ignore
+                geom_jitter = p9.geom_jitter(**jitter_kwargs) # type: ignore
                 fig_extra_scale = None
 
         elif kind == "line":
@@ -585,9 +586,9 @@ class DCThemeFactory:
 
         fig += geom
         if kind == "boxplot":
-            fig += geom_jitter
-            if swarm and fig_extra_scale is not None:
-                fig += fig_extra_scale
+            fig += geom_jitter # type: ignore
+            if swarm and fig_extra_scale is not None: # type: ignore
+                fig += fig_extra_scale # type: ignore
 
         # --- Color/fill scale -------------------------------------------
         # Apply the palette through the correct scale depending on whether
